@@ -1,16 +1,24 @@
 import Sidebar from '@/components/Sidebar/Sidebar';
 import React from 'react';
+import { auth } from '@/db/auth';
 
-const SidebarLayout = ({ children }: { children: React.ReactNode }) => {
+const SidebarLayout = async ({ children }: { children: React.ReactNode }) => {
+  const session = await auth();
+
+  if (session) {
+    return (
+      <div className="grid grid-cols-6 gap-7">
+        <div className="">
+          <Sidebar />
+        </div>
+        <div className="col-span-5">{children}</div>
+      </div>
+    );
+  }
+
   return (
-    <div className=" border-green-800 border grid grid-cols-6 gap-5">
-      <div className=" border-pink-500">
-        <Sidebar />
-      </div>
-      <div className="border col-span-6 border-yellow-800">
-        hi there
-       {children}
-      </div>
+    <div className=" grid grid-cols-6 gap-5">
+      <div className=" col-span-6 ">{children}</div>
     </div>
   );
 };

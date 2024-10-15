@@ -5,7 +5,7 @@ export default async function Home() {
   const session = await auth();
   console.log(session, '<- this is the session object');
   if (!session?.user) {
-    return <h1 className="border mx-auto text-white ">Home page</h1>;
+    return <h1 className="border col-span-6 mx-auto text-white ">Home page</h1>;
   }
   return (
     <div className="overflow-auto text-teritiary w-fit mx-auto">

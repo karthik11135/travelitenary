@@ -10,16 +10,16 @@ import { useSession } from 'next-auth/react';
 const Sidebar = () => {
   const { data: session } = useSession();
 
-  if (!session) {
-    return <div className=''></div>;
-  }
+  // if (!session) {
+  //   return <div className=''></div>;
+  // }
 
   return (
-    <div className="overflow-auto w-fit border">
+    <div className="overflow-auto w-fit">
       <motion.div
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
-        className=" pt-4 mx-3 flex text-teritiary h-[40rem] mt-16 rounded-lg px-3 justify-center flex-col bg-primary"
+        className=" pt-4 mx-3 flex text-teritiary h-[40rem] mt-20 rounded-lg px-3 justify-center flex-col bg-primary"
       >
         <div className=" font-bold px-2 mb-4 gap-3 flex mt-2">
           <h1 className="text-3xl  ">Travel</h1>

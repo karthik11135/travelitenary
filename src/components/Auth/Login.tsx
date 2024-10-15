@@ -40,7 +40,7 @@ const Login = () => {
   }
 
   return (
-    <div className="bg-primary rounded-lg shadow-md p-8 mt-10 w-full mx-auto max-w-md">
+    <div className="bg-primary rounded-lg shadow-md p-8 w-full mt-10 mx-auto max-w-md">
       <h2 className="text-2xl font-semibold text-teritiary mb-6">
         Login to your account
       </h2>
