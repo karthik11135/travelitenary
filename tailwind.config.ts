@@ -4,16 +4,18 @@ const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/ui/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        supreme: "#0B2447",
+        primary: "#19376D",
+        secondary: "#576CBC",
+        teritiary: "#A5D7E8",
       },
     },
   },
-  plugins: [],
 };
 export default config;
