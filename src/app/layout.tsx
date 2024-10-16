@@ -6,6 +6,7 @@ import Providers from '@/lib/Providers';
 import NavorSide from '@/lib/NavorSide';
 import Sidebar from '@/components/Sidebar/Sidebar';
 import SidebarLayout from '@/ui/SidebarLayout';
+
 const roboto = Roboto({
   weight: ['400', '100', '300', '500', '700'],
   subsets: ['greek'],

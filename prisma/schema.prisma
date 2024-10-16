@@ -19,4 +19,23 @@ model User {
   email String @unique
   password String?
   provider String?
+  trip Itenary[]
+}
+
+model Itenary {
+  id Int @id @default(autoincrement())
+  userId Int
+  title String
+  user User @relation(fields: [userId], references: [id])
+  waypoints Waypoints[]
+}
+
+model Waypoints {
+  id Int @id @default(autoincrement())
+  itenaryId Int
+  wpTitle String
+  wpDescription String
+  wpDate String
+  wpCost Int
+  itenary Itenary @relation(fields: [itenaryId], references: [id])
 }

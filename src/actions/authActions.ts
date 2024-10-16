@@ -73,12 +73,15 @@ export const loginAction = async (
 };
 
 export const userExists = async (email: string) => {
-  const user = await prisma.user.findUnique({
-    where: {
-      email: email,
-    },
-  });
-
-  if (!user) return false;
-  return user;
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+    });
+    if (!user) return false;
+    return user;
+  } catch (err) {
+    return false;
+  }
 };

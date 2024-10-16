@@ -1,11 +1,58 @@
+'use client';
+
 import React from 'react';
-import { Input } from '@nextui-org/input';
+
+import { Poppins } from 'next/font/google';
+import TripBox from './TripBox';
+import { useRef } from 'react';
+
+import { useContext } from 'react';
+import { ItenaryDetailsContext } from './TripContext';
+
+const poppins = Poppins({
+  weight: '400',
+  subsets: ['latin'],
+});
 
 const TripPlan = () => {
-  return <div className='bg-green-600 px-10 my-10 border border-pink-700'>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt possimus, ullam cupiditate iure eum reiciendis voluptates distinctio totam perspiciatis repudiandae ab deleniti, velit eaque obcaecati dicta ut quam ratione molestias.lorem Lorem ipsum dolor sit amet consectetur, adipisicing elit. Excepturi odit qui dignissimos doloribus cum nemo molestias quia quidem temporibus? Totam et minus explicabo dolor facilis! Veniam dolor necessitatibus voluptatum omnis. lorem 
-    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea aliquid architecto sint. Cupiditate dolores nihil excepturi ad omnis assumenda reprehenderit quia quidem dignissimos optio necessitatibus doloremque impedit, repudiandae rem iusto.
-  </div>;
+  const { itenaryArr } = useContext(ItenaryDetailsContext);
+  const tripRef = useRef<null | HTMLInputElement>(null);
+  const lastTripRef = useRef(null)
+
+  const submitItenaryHandler = () => {
+    if(tripRef.current) console.log(tripRef.current.value)
+    console.log(itenaryArr);
+  };
+
+  return (
+    <div className={`${poppins.className} me-20 my-10 border-pink-700`}>
+      <TripDestination ref={tripRef} />
+      <div>
+        {itenaryArr.map((it, ind) => {
+          return <TripBox key={ind} num={ind + 1} />;
+        })}
+      </div>
+      <div className="w-fit mx-auto">
+        <button
+          onClick={submitItenaryHandler}
+          className="text-teritiary bg-secondary my-2 px-3 py-1.5 rounded-full "
+        >
+          Lets go!
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default TripPlan;
+
+const TripDestination = React.forwardRef<HTMLInputElement>((props, ref) => (
+  <div className="w-4/6  font-bold mb-2 text-teritiary text-4xl">
+    <input
+      ref={ref}
+      placeholder="Where are you going?"
+      className="focus:outline-none w-full border-b bg-transparant pb-4 border-zinc-500 bg-supreme placeholder:opacity-40 outline-none placeholder:text-neutral-400"
+      type="text"
+    />
+  </div>
+));

@@ -50,7 +50,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   callbacks: {
     async jwt({ token, user, account, profile }) {
-      if (user && account?.provider === "credentials") {
+      if (user && account?.provider === 'credentials') {
         token.userId = user.userId;
         token.emailId = user.emailId;
         token.username = user.username;
@@ -59,15 +59,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (account?.provider === 'google' && profile) {
         const userPresent = await userExists(profile?.email as string);
         if (!userPresent) {
-          const newUser = await prisma.user.create({
-            data: {
-              email: profile.email as string,
-              name: profile.name as string,
-              password: null,
-              provider: 'google',
-            },
-          });
-          token.userId = newUser.id;
+          try {
+            const newUser = await prisma.user.create({
+              data: {
+                email: profile.email as string,
+                name: profile.name as string,
+                password: null,
+                provider: 'google',
+              },
+            });
+            token.userId = newUser.id;
+          } catch (err) {
+            return null;
+          }
         } else {
           token.userId = userPresent.id;
         }
