@@ -40,6 +40,7 @@ export const getItenaryAction = async (itenaryId: number) => {
         userId: true,
         waypoints: {
           select: {
+            id: true,
             wpTitle: true,
             wpDescription: true,
             wpDate: true,

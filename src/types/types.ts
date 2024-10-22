@@ -28,6 +28,7 @@ export type PostItenaryActionType = {
 }
 
 export interface EachWaypointType {
+  id: number;
   wpTitle: string;
   wpDescription: string;
   wpDate: string;
@@ -39,6 +40,7 @@ export interface EachItenaryType {
   id: number;
   userId: number;
   waypoints: {
+    id: number;
     wpTitle: string;
     wpDescription: string;
     wpDate: string;
@@ -53,3 +55,11 @@ export interface EachItenaryPreviewType {
   wpTitle: string;
   wpDes: string;
 }
+
+export interface EachComment {
+  id: number;
+  commentText: string;
+  user: {
+      name: string;
+  };
+}[] 

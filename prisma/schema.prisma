@@ -20,6 +20,7 @@ model User {
   password String?
   provider String?
   trip Itenary[]
+  comments Comments[]
 }
 
 model Itenary {
@@ -38,4 +39,14 @@ model Waypoints {
   wpDate String
   wpCost Int
   itenary Itenary @relation(fields: [itenaryId], references: [id])
+  comments Comments[]
+}
+
+model Comments {
+  id Int @id @default(autoincrement())
+  commentText String
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+  waypointId Int
+  waypoints Waypoints @relation(fields: [waypointId], references: [id])
 }
