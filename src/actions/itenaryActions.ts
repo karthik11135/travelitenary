@@ -1,40 +1,34 @@
-import { itenaryType } from '@/components/trip-planning/TripContext';
+'use server';
+import { itenaryType } from '@/types/types';
 import prisma from '@/db/client';
+import { preProcessAttributes } from './helperFns';
+import { PostItenaryActionType } from '@/types/types';
 
-const postItenary = async (
+export const postItenary = async (
   userId: number,
   title: string,
   waypoints: itenaryType[]
-) => {
+): Promise<PostItenaryActionType> => {
+  const wayPointsProcessed = preProcessAttributes(waypoints);
 
-  const wayPointsProcessed = [];
-  
-  for (let i = 0; i < waypoints.length; i++) {
-    const {
-      title: wpTitle,
-      description: wpDescription,
-      pickedDate: wpDate,
-      discreteCost: wpCost,
-    } = waypoints[i];
-    const processedObj = { wpTitle, wpDescription, wpDate, wpCost };
-    wayPointsProcessed.push(processedObj);
+  try {
+    const itenary = await prisma.itenary.create({
+      data: {
+        title: title,
+        userId: userId,
+        waypoints: {
+          create: wayPointsProcessed,
+        },
+      },
+    });
+    return { id: itenary.id, ok: true };
+  } catch (err) {
+    console.log(err);
+    return { id: null, ok: false };
   }
-  //   try {
-  //     await prisma.itenary.create({
-  //       data: {
-  //         userId,
-  //         title,
-  //         waypoints: {
-  //           create: wayPointsProcessed,
-  //         },
-  //       },
-  //     });
-  //   } catch (err) {
-  //     return null;
-  //   }
 };
 
-const getItenaryAction = async (itenaryId: number) => {
+export const getItenaryAction = async (itenaryId: number) => {
   try {
     const itenaryDetails = await prisma.itenary.findUnique({
       where: {
@@ -42,12 +36,8 @@ const getItenaryAction = async (itenaryId: number) => {
       },
       select: {
         title: true,
+        id: true,
         userId: true,
-        user: {
-          select: {
-            name: true,
-          },
-        },
         waypoints: {
           select: {
             wpTitle: true,
@@ -58,7 +48,7 @@ const getItenaryAction = async (itenaryId: number) => {
         },
       },
     });
-    console.log(itenaryDetails);
+
     if (itenaryDetails) return itenaryDetails;
   } catch (err) {
     return null;
@@ -67,7 +57,8 @@ const getItenaryAction = async (itenaryId: number) => {
   return null;
 };
 
-const getItenariesForUser = async (userId: number) => {
+export const getItenariesForUser = async (userId: number) => {
+  console.log('reached the action');
   try {
     const itenaries = await prisma.itenary.findMany({
       where: {
@@ -75,22 +66,17 @@ const getItenariesForUser = async (userId: number) => {
       },
       select: {
         title: true,
+        id: true,
         waypoints: {
-          select: {
-            wpTitle: true,
-            wpDescription: true,
-            wpDate: true,
-            wpCost: true,
-          },
+          take: 1,
         },
       },
     });
 
-    console.log(itenaries);
+    console.log(itenaries, 'inside');
     if (itenaries) return itenaries;
   } catch (err) {
     return null;
   }
-
   return null;
 };

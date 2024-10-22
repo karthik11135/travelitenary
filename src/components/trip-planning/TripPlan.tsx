@@ -1,52 +1,86 @@
 'use client';
 
-import React from 'react';
-
-import { Poppins } from 'next/font/google';
+import React, { useState } from 'react';
+import { Raleway } from 'next/font/google';
 import TripBox from './TripBox';
 import { useRef } from 'react';
-
 import { useContext } from 'react';
 import { ItenaryDetailsContext } from './TripContext';
+import { postItenary } from '@/actions/itenaryActions';
+import { useSession } from 'next-auth/react';
+import Loader from '@/ui/Loader';
+import { useRouter } from 'next/navigation';
 
-const poppins = Poppins({
+const poppins = Raleway({
   weight: '400',
   subsets: ['latin'],
 });
 
 const TripPlan = () => {
+  const { data: session } = useSession();
+  const router = useRouter();
+  console.log(session);
   const { itenaryArr } = useContext(ItenaryDetailsContext);
+  const [showPostError, setShowPostError] = useState(false);
   const tripRef = useRef<null | HTMLInputElement>(null);
-  const lastTripRef = useRef(null)
+  const [loading, setLoading] = useState(false);
+  const childRef = useRef<{ handleSaveClick: () => void }>(null);
 
-  const submitItenaryHandler = () => {
-    if(tripRef.current) console.log(tripRef.current.value)
-    console.log(itenaryArr);
+  const submitItenaryHandler = async () => {
+    setShowPostError(false);
+    setLoading(true);
+    if ((tripRef.current && tripRef.current.value.trim() === '') || !session)
+      return;
+    if (!tripRef.current) return;
+    if (childRef.current) {
+      childRef.current.handleSaveClick();
+    }
+    try {
+      const res = await postItenary(
+        session?.user.userId,
+        tripRef.current?.value,
+        itenaryArr
+      );
+      if (!res) {
+        setShowPostError(true);
+      } else {
+        router.push(`/itenaries/${res.id}`);
+        setLoading(false);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
-    <div className={`${poppins.className} me-20 my-10 border-pink-700`}>
+    <div className={`${poppins.className} me-20 my-10`}>
       <TripDestination ref={tripRef} />
       <div>
-        {itenaryArr.map((it, ind) => {
-          return <TripBox key={ind} num={ind + 1} />;
+        {itenaryArr.map((_, ind) => {
+          return <TripBox key={ind} num={ind + 1} ref={childRef} />;
         })}
       </div>
       <div className="w-fit mx-auto">
         <button
+          disabled={loading ? true : false}
           onClick={submitItenaryHandler}
-          className="text-teritiary bg-secondary my-2 px-3 py-1.5 rounded-full "
+          className="text-teritiary disabled:cursor-not-allowed disabled:opacity-50 bg-secondary my-2 px-3 py-1.5 rounded-full "
         >
-          Lets go!
+          {loading ? <Loader /> : 'Lets go!'}
         </button>
       </div>
+      {showPostError && (
+        <p className="text-center text-red-500 font-bold text-sm ">
+          Something error occured
+        </p>
+      )}
     </div>
   );
 };
 
 export default TripPlan;
 
-const TripDestination = React.forwardRef<HTMLInputElement>((props, ref) => (
+const TripDestination = React.forwardRef<HTMLInputElement>((_, ref) => (
   <div className="w-4/6  font-bold mb-2 text-teritiary text-4xl">
     <input
       ref={ref}

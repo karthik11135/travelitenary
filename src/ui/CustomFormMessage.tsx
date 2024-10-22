@@ -1,5 +1,5 @@
 import React from 'react';
-import { formMessage } from '@/types/actionTypes';
+import { formMessage } from '@/types/types';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 

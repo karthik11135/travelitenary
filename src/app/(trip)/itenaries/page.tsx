@@ -1,8 +1,9 @@
+import ItenariesList from '@/components/allItenaries/ItenariesList'
 import React from 'react'
 
 const page = () => {
   return (
-    <div>Itenaries page</div>
+    <ItenariesList />
   )
 }
 

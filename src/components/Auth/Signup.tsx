@@ -2,7 +2,7 @@
 import React from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { signupAction } from '@/actions/authActions';
-import { formMessage } from '@/types/actionTypes';
+import { formMessage } from '@/types/types';
 import Loader from '@/ui/Loader';
 import { motion } from 'framer-motion';
 import Link from 'next/link';

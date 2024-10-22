@@ -8,7 +8,6 @@ import NavbarMotionWrapper from './NavbarMotionWrapper';
 
 const Navbar = async () => {
   const session = await auth()
-  console.log('this is navbar', session);
   if (session) return <div></div>;
   return (
     <div className="overflow-auto">

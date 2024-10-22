@@ -10,9 +10,9 @@ import { useSession } from 'next-auth/react';
 const Sidebar = () => {
   const { data: session } = useSession();
 
-  // if (!session) {
-  //   return <div className=''></div>;
-  // }
+  if (!session) {
+    return <div className=""></div>;
+  }
 
   return (
     <div className="overflow-auto w-fit">

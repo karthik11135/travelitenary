@@ -1,28 +1,9 @@
 'use client';
 import React from 'react';
-
 import { createContext } from 'react';
 import { useState } from 'react';
-import TripPlan from './TripPlan';
-
-export interface DateType {
-  startDate: null | Date
-  endDate: null | Date
-}
-
-export interface itenaryType {
-  title: string;
-  description: string;
-  pickedDate: DateType
-  discreteCost: number;
-}
-
-interface ItenaryDetailType {
-  itenaryArr: itenaryType[];
-  setItenaryArr:
-    | React.Dispatch<React.SetStateAction<itenaryType[]>>
-    | (() => void);
-}
+import { itenaryType } from '@/types/types';
+import { ItenaryDetailType } from '@/types/types';
 
 export const ItenaryDetailsContext = createContext<ItenaryDetailType>({
   itenaryArr: [

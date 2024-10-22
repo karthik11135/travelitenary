@@ -1,6 +1,6 @@
 'use server';
 import prisma from '@/db/client';
-import { formMessage } from '@/types/actionTypes';
+import { formMessage } from '@/types/types';
 import { signupZodSchema } from '@/types/zodSchemas';
 import { loginType, loginZodSchema } from '@/types/zodSchemas';
 

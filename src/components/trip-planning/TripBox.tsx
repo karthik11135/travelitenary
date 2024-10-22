@@ -1,32 +1,53 @@
 'use client';
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, {
+  ChangeEvent,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
 import CustomTextarea from '@/ui/TextAreaElement';
 import { AddIcon } from '@/ui/Icons';
 import { useContext } from 'react';
 import { ItenaryDetailsContext } from './TripContext';
 import DatePickerFeature from '@/ui/DatePicker';
-import { DateType } from './TripContext';
+import { DateType } from '@/types/types';
+import TripBoxSkeleton from './skeletons/TripBoxSkeleton';
 
-const TripBox = ({ num }: { num: number }) => {
+const TripBox = React.forwardRef(({ num }: {num: number}, ref) => {
   const [titleInput, setTitleInput] = useState('');
   const [description, setDescription] = useState('');
   const [dates, setDates] = useState<DateType>({
     startDate: null,
     endDate: null,
   });
-  const costRef = useRef<HTMLInputElement | null>(null)
+  const costRef = useRef<HTMLInputElement | null>(null);
   const { itenaryArr, setItenaryArr } = useContext(ItenaryDetailsContext);
 
-  const addTripBox = async () => {
-    if(costRef.current) console.log(costRef.current.value)
+  const handleSaveClick = () => {
     setItenaryArr((prev) => {
       prev[itenaryArr.length - 1] = {
         title: titleInput,
         description: description,
         pickedDate: dates,
-        discreteCost: (costRef.current) ? Number(costRef.current.value) : 0,
+        discreteCost: costRef.current ? Number(costRef.current.value) : 0,
       };
-      console.log(itenaryArr);
+      return prev;
+    });
+    console.log(itenaryArr)
+  };
+
+  useImperativeHandle(ref, () => ({
+    handleSaveClick,
+  }));
+
+  const addTripBox = async () => {
+    setItenaryArr((prev) => {
+      prev[itenaryArr.length - 1] = {
+        title: titleInput,
+        description: description,
+        pickedDate: dates,
+        discreteCost: costRef.current ? Number(costRef.current.value) : 0,
+      };
       const tempArr = [
         ...prev,
         {
@@ -36,7 +57,6 @@ const TripBox = ({ num }: { num: number }) => {
           discreteCost: 0,
         },
       ];
-      console.log(itenaryArr, 'i think its done');
       return tempArr;
     });
   };
@@ -77,7 +97,7 @@ const TripBox = ({ num }: { num: number }) => {
           <input
             ref={costRef}
             type="number"
-            placeholder='Cost ($)'
+            placeholder="Cost ($)"
             className=" bg-slate-800 text-md text-teritiary  px-4 py-1 my-2 w-4/6 rounded-md focus:outline-none outline-none"
           />
         </div>
@@ -89,7 +109,8 @@ const TripBox = ({ num }: { num: number }) => {
         </div>
       )}
     </div>
+
   );
-};
+});
 
 export default TripBox;
