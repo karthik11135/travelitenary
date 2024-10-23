@@ -11,11 +11,13 @@ import { useContext } from 'react';
 import { ItenaryDetailsContext } from './TripContext';
 import DatePickerFeature from '@/ui/DatePicker';
 import { DateType } from '@/types/types';
-import TripBoxSkeleton from './skeletons/TripBoxSkeleton';
+import { motion } from 'framer-motion';
 
-const TripBox = React.forwardRef(({ num }: {num: number}, ref) => {
+const TripBox = React.forwardRef(({ num }: { num: number }, ref) => {
+  const tripBoxRef = useRef(null);
   const [titleInput, setTitleInput] = useState('');
   const [description, setDescription] = useState('');
+  const [errMessage, setErrMessage] = useState('');
   const [dates, setDates] = useState<DateType>({
     startDate: null,
     endDate: null,
@@ -33,7 +35,7 @@ const TripBox = React.forwardRef(({ num }: {num: number}, ref) => {
       };
       return prev;
     });
-    console.log(itenaryArr)
+    console.log(itenaryArr);
   };
 
   useImperativeHandle(ref, () => ({
@@ -41,6 +43,10 @@ const TripBox = React.forwardRef(({ num }: {num: number}, ref) => {
   }));
 
   const addTripBox = async () => {
+    if (titleInput.length === 0) {
+      setErrMessage('Set a title');
+      return;
+    }
     setItenaryArr((prev) => {
       prev[itenaryArr.length - 1] = {
         title: titleInput,
@@ -59,14 +65,22 @@ const TripBox = React.forwardRef(({ num }: {num: number}, ref) => {
       ];
       return tempArr;
     });
+    setErrMessage('');
+    // window.localStorage.setItem('itenary-cache', JSON.stringify(itenaryArr))
   };
 
   return (
-    <div className="w-full relative my-4 py-3 rounded-md  px-5 bg-gradient-to-r from-secondary to-primary">
+    <motion.div
+      ref={tripBoxRef}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4, type: 'spring', stiffness: 80 }}
+      className="w-full relative py-3 rounded-md  px-5 bg-gradient-to-r from-secondary to-primary"
+    >
       {num !== itenaryArr.length && (
         <div className="absolute top-0 left-0 z-10 opacity-35 w-full h-full bg-black"></div>
       )}
-      <div className="grid grid-cols-12 ">
+      <div className="grid grid-cols-12">
         <div className="col-span-9">
           <div className=" mb-5 text-supreme">
             <p className="inline text-2xl text-white font-extrabold me-3">
@@ -98,18 +112,17 @@ const TripBox = React.forwardRef(({ num }: {num: number}, ref) => {
             ref={costRef}
             type="number"
             placeholder="Cost ($)"
-            className=" bg-slate-800 text-md text-teritiary  px-4 py-1 my-2 w-4/6 rounded-md focus:outline-none outline-none"
+            className=" bg-slate-50 text-md text-black font-bold  px-4 py-1 my-2 w-4/6 rounded-md focus:outline-none outline-none"
           />
         </div>
       </div>
-
       {num === itenaryArr.length && (
         <div onClick={addTripBox} className="cursor-pointer w-fit mx-auto mt-4">
           <AddIcon />
         </div>
       )}
-    </div>
-
+      {errMessage.length > 0 && <p className='font-bold text-red-300 px-6'>{errMessage}</p>}
+    </motion.div>
   );
 });
 

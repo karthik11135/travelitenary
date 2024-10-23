@@ -22,7 +22,7 @@ const Sidebar = () => {
         className=" pt-4 mx-3 flex text-teritiary h-[40rem] mt-20 rounded-lg px-3 justify-center flex-col bg-primary"
       >
         <div className=" font-bold px-2 mb-4 gap-3 flex mt-2">
-          <h1 className="text-3xl  ">Travel</h1>
+          <Link href={"/"} className="text-4xl">Travel</Link>
           <h1 className="text-3xl bg-green-500  ms-auto"></h1>
         </div>
         <div className="flex flex-col gap-3 my-2 ">

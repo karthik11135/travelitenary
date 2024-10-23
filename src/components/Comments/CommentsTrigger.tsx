@@ -11,7 +11,7 @@ const CommentsTrigger = ({ wayPointId }: { wayPointId: number }) => {
   return (
     <div className="flex flex-col text-slate-200">
       <button
-        className="bg-secondary rounded-full cursor-pointer px-3 py-1.5 text-xs font-bold "
+        className="bg-secondary w-fit ms-auto rounded-full cursor-pointer px-3 py-1.5 text-xs font-bold "
         onClick={() => setOpen((open) => !open)}
         id="dropdownDefaultButton"
         data-dropdown-toggle="dropdown"

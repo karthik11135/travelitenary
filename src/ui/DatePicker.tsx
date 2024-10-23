@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import React from 'react';
 import Datepicker from 'react-tailwindcss-datepicker';
-import { DateType } from '@/components/trip-planning/TripContext';
+import { DateType } from '@/types/types';
 
 interface DatePickProps {
   dates: DateType;
@@ -15,15 +15,17 @@ const DatePickerFeature = ({ dates, setDates }: DatePickProps) => {
   });
 
   return (
-    <Datepicker
-      primaryColor={'sky'}
-      useRange={false}
-      asSingle={true}
-      value={dates}
-      onChange={(newValue) =>
-        setDates(newValue as React.SetStateAction<DateType>)
-      }
-    />
+
+      <Datepicker
+        primaryColor={'sky'}
+        useRange={false}
+        asSingle={true}
+        value={dates}
+        onChange={(newValue) =>
+          setDates(newValue as React.SetStateAction<DateType>)
+        }
+      />
+
   );
 };
 

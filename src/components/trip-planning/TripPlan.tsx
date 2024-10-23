@@ -5,11 +5,13 @@ import { Raleway } from 'next/font/google';
 import TripBox from './TripBox';
 import { useRef } from 'react';
 import { useContext } from 'react';
+import { motion } from 'framer-motion';
 import { ItenaryDetailsContext } from './TripContext';
 import { postItenary } from '@/actions/itenaryActions';
 import { useSession } from 'next-auth/react';
 import Loader from '@/ui/Loader';
 import { useRouter } from 'next/navigation';
+import TripPlanSkeleton from './skeletons/TripPlanSkeleton';
 
 const poppins = Raleway({
   weight: '400',
@@ -20,11 +22,14 @@ const TripPlan = () => {
   const { data: session } = useSession();
   const router = useRouter();
   console.log(session);
-  const { itenaryArr } = useContext(ItenaryDetailsContext);
+  let { itenaryArr } = useContext(ItenaryDetailsContext);
   const [showPostError, setShowPostError] = useState(false);
   const tripRef = useRef<null | HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
   const childRef = useRef<{ handleSaveClick: () => void }>(null);
+
+  // if (localStorage.getItem('itenary-cache'))
+  //   itenaryArr = JSON.parse(localStorage.getItem('itenary-cache') as string);
 
   const submitItenaryHandler = async () => {
     setShowPostError(false);
@@ -57,7 +62,19 @@ const TripPlan = () => {
       <TripDestination ref={tripRef} />
       <div>
         {itenaryArr.map((_, ind) => {
-          return <TripBox key={ind} num={ind + 1} ref={childRef} />;
+          return (
+            <div key={ind} className="">
+              <TripBox num={ind + 1} ref={childRef} />
+              {ind !== itenaryArr.length - 1 && (
+                <motion.div
+                  initial={{ height: 0 }}
+                  animate={{ height: '3.5rem' }}
+                  transition={{ duration: 0.4, type: 'spring', stiffness: 100 }}
+                  className="h-14 mx-8 w-[2px] bg-gradient-to-b from-purple-300 to-secondary "
+                ></motion.div>
+              )}
+            </div>
+          );
         })}
       </div>
       <div className="w-fit mx-auto">
@@ -81,12 +98,16 @@ const TripPlan = () => {
 export default TripPlan;
 
 const TripDestination = React.forwardRef<HTMLInputElement>((_, ref) => (
-  <div className="w-4/6  font-bold mb-2 text-teritiary text-4xl">
+  <motion.div
+    initial={{ x: 40, opacity: 0 }}
+    animate={{ x: 0, opacity: 1 }}
+    className="w-4/6  font-bold mb-2 text-teritiary text-4xl"
+  >
     <input
       ref={ref}
       placeholder="Where are you going?"
       className="focus:outline-none w-full border-b bg-transparant pb-4 border-zinc-500 bg-supreme placeholder:opacity-40 outline-none placeholder:text-neutral-400"
       type="text"
     />
-  </div>
+  </motion.div>
 ));

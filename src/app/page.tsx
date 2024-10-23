@@ -1,17 +1,16 @@
 import { auth } from '@/db/auth';
 import Sidebar from '@/components/Sidebar/Sidebar';
 import { CommentBox } from '@/components/Comments/CommentBox';
+import HomeScreen from '@/components/landing/HomeScreen';
+import LandingScreen from '@/components/landing/LandingScreen';
 
 export default async function Home() {
   const session = await auth();
   console.log(session, '<- this is the session object');
-  if (!session?.user) {
-    return <h1 className=" col-span-6 mx-auto w-fit text-white ">Home page</h1>;
-    // return <CommentBox />
+  if (!session) {
+    return <LandingScreen />;
   }
   return (
-    <div className="overflow-auto text-teritiary w-fit mx-auto">
-      <p>user is logged in</p>
-    </div>
+    <HomeScreen />
   );
 }
