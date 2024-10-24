@@ -8,6 +8,7 @@ export default async function Home() {
   const session = await auth();
   console.log(session, '<- this is the session object');
   if (!session) {
+
     return <LandingScreen />;
   }
   return (

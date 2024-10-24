@@ -5,11 +5,12 @@ interface TextareaProps {
     minRows: number
     className: string
     onChange :(e: ChangeEvent<HTMLTextAreaElement>) => void
+    initialVal?: string
 }
 
-const CustomTextarea = ({minRows, className, onChange}: TextareaProps) => {
+const CustomTextarea = ({minRows, className, onChange, initialVal}: TextareaProps) => {
     const [rows, setRows] = React.useState(minRows);
-    const [value, setValue] = React.useState("");
+    const [value, setValue] = React.useState(initialVal || "");
     
     React.useEffect(() => {
       const rowlen = value.split("\n");
@@ -20,7 +21,7 @@ const CustomTextarea = ({minRows, className, onChange}: TextareaProps) => {
     }, [value]);
   
     return (
-      <textarea placeholder="Add description" onChangeCapture={onChange} className={className} rows={rows} onChange={(text) => setValue(text.target.value)} />
+      <textarea value={value} placeholder="Add description" onChangeCapture={onChange} className={className} rows={rows} onChange={(text) => setValue(text.target.value)} />
     );
   }
 

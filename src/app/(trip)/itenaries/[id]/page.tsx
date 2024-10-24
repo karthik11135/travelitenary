@@ -9,6 +9,7 @@ const page = async ({ params }: { params: { id: string } }) => {
     return <div>Could not load your data. Maybe try again</div>;
   }
   return <EachItenary itenary={itenary} />;
+
 };
 
 export default page;

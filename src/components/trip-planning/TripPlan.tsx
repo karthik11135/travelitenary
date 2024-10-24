@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useState } from 'react';
 import { Raleway } from 'next/font/google';
 import TripBox from './TripBox';
@@ -11,7 +10,6 @@ import { postItenary } from '@/actions/itenaryActions';
 import { useSession } from 'next-auth/react';
 import Loader from '@/ui/Loader';
 import { useRouter } from 'next/navigation';
-import TripPlanSkeleton from './skeletons/TripPlanSkeleton';
 
 const poppins = Raleway({
   weight: '400',
@@ -27,9 +25,6 @@ const TripPlan = () => {
   const tripRef = useRef<null | HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
   const childRef = useRef<{ handleSaveClick: () => void }>(null);
-
-  // if (localStorage.getItem('itenary-cache'))
-  //   itenaryArr = JSON.parse(localStorage.getItem('itenary-cache') as string);
 
   const submitItenaryHandler = async () => {
     setShowPostError(false);

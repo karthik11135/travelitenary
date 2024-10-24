@@ -19,12 +19,20 @@ const EachItenary = ({ itenary }: { itenary: EachItenaryType | null }) => {
         <h1 className="text-5xl text-primary font-bold">
           {itenary?.title} Trip
         </h1>
-        <Link
-          href={'/itenaries'}
-          className="flex cursor-pointer p-2 rounded-full hover:bg-slate-400 items-center ms-auto"
-        >
-          <LeftIcon />
-        </Link>
+        <div className="ms-auto flex gap-3 items-center">
+          <Link
+            href={`/itenaries/edit/${itenary.id}`}
+            className="bg-secondary text-lg text-black font-bold hover:-translate-y-0.5 transition rounded-full z-20 right-2 bottom-2 px-3"
+          >
+            Edit
+          </Link>
+          <Link
+            href={'/itenaries'}
+            className=" cursor-pointer p-2 rounded-full hover:bg-slate-400 "
+          >
+            <LeftIcon />
+          </Link>
+        </div>
       </div>
       <div>
         {itenary?.waypoints.map((eachWp, ind) => {
@@ -34,6 +42,7 @@ const EachItenary = ({ itenary }: { itenary: EachItenaryType | null }) => {
       <div className="px-2">
         ${totalCost} is the total expected cost of the trip
       </div>
+
       <div>
         <ShareButton />
       </div>

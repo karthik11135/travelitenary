@@ -3,8 +3,6 @@ import './globals.css';
 import { Roboto } from 'next/font/google';
 import Navbar from '@/components/Navbar/Navbar';
 import Providers from '@/lib/Providers';
-import NavorSide from '@/lib/NavorSide';
-import Sidebar from '@/components/Sidebar/Sidebar';
 import SidebarLayout from '@/ui/SidebarLayout';
 
 const roboto = Roboto({
@@ -29,7 +27,6 @@ export default function RootLayout({
       >
         <Providers>
           <Navbar />
-          {/* <Sidebar /> */}
           <SidebarLayout>{children}</SidebarLayout>
         </Providers>
       </body>
