@@ -3,7 +3,7 @@ import { EachWaypointType, itenaryType } from '@/types/types';
 import prisma from '@/db/client';
 import { preProcessAttributes } from './helperFns';
 import { PostItenaryActionType } from '@/types/types';
-import { Prisma, PrismaClient } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 
 export const postItenary = async (
   userId: number,
