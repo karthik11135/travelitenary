@@ -3,7 +3,7 @@ import { EachWaypointType, itenaryType } from '@/types/types';
 import prisma from '@/db/client';
 import { preProcessAttributes } from './helperFns';
 import { PostItenaryActionType } from '@/types/types';
-import { PrismaClient } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
 
 export const postItenary = async (
   userId: number,
@@ -92,9 +92,7 @@ export const editItenaryAction = async (
 ) => {
   try {
     const transaction = await prisma.$transaction(
-      async (
-        tx: Parameters<Parameters<PrismaClient['$transaction']>[0]>[0]
-      ) => {
+      async (tx: Prisma.TransactionClient) => {
         const updateItenary = await tx.itenary.update({
           where: {
             id: itenaryId,
