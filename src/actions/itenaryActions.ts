@@ -11,7 +11,7 @@ export const postItenary = async (
   waypoints: itenaryType[]
 ): Promise<PostItenaryActionType> => {
   const wayPointsProcessed = preProcessAttributes(waypoints);
-  console.log(waypoints[0])
+  console.log(waypoints[0]);
   try {
     const itenary = await prisma.itenary.create({
       data: {
@@ -53,7 +53,7 @@ export const getItenaryAction = async (itenaryId: number) => {
 
     if (itenaryDetails) return itenaryDetails;
   } catch (err) {
-    console.log(err)
+    console.log(err);
     return null;
   }
 
@@ -79,7 +79,7 @@ export const getItenariesForUser = async (userId: number) => {
     console.log(itenaries, 'inside');
     if (itenaries) return itenaries;
   } catch (err) {
-    console.log(err)
+    console.log(err);
     return null;
   }
   return null;
@@ -91,50 +91,52 @@ export const editItenaryAction = async (
   wps: EachWaypointType[]
 ) => {
   try {
-    const transaction = await prisma.$transaction(async (tx: Parameters<
-      Parameters<PrismaClient['$transaction']>[0]
-  >[0]) => {
-      const updateItenary = await tx.itenary.update({
-        where: {
-          id: itenaryId,
-        },
-        data: {
-          title: title,
-        },
-      });
-
-      const newWps = wps.filter((wp) => wp.id === -1);
-      const updatedWps = wps.filter((wp) => wp.id !== -1);
-
-      for (let i = 0; i < updatedWps.length; i++) {
-        const updatedWpId = updatedWps[i].id;
-        await tx.waypoints.update({
+    const transaction = await prisma.$transaction(
+      async (
+        tx: Parameters<Parameters<PrismaClient['$transaction']>[0]>[0]
+      ) => {
+        const updateItenary = await tx.itenary.update({
           where: {
-            id: updatedWpId,
+            id: itenaryId,
           },
           data: {
-            wpTitle: updatedWps[i].wpTitle,
-            wpDescription: updatedWps[i].wpDescription,
-            wpDate: updatedWps[i].wpDate,
-            wpCost: updatedWps[i].wpCost,
+            title: title,
           },
         });
-      }
 
-      for (let i = 0; i < newWps.length; i++) {
-        await tx.waypoints.create({
-          data: {
-            itenaryId: itenaryId,
-            wpCost: newWps[i].wpCost,
-            wpTitle: newWps[i].wpTitle,
-            wpDescription: newWps[i].wpDescription,
-            wpDate: newWps[i].wpDate,
-          },
-        });
-      }
+        const newWps = wps.filter((wp) => wp.id === -1);
+        const updatedWps = wps.filter((wp) => wp.id !== -1);
 
-      return updateItenary;
-    });
+        for (let i = 0; i < updatedWps.length; i++) {
+          const updatedWpId = updatedWps[i].id;
+          await tx.waypoints.update({
+            where: {
+              id: updatedWpId,
+            },
+            data: {
+              wpTitle: updatedWps[i].wpTitle,
+              wpDescription: updatedWps[i].wpDescription,
+              wpDate: updatedWps[i].wpDate,
+              wpCost: updatedWps[i].wpCost,
+            },
+          });
+        }
+
+        for (let i = 0; i < newWps.length; i++) {
+          await tx.waypoints.create({
+            data: {
+              itenaryId: itenaryId,
+              wpCost: newWps[i].wpCost,
+              wpTitle: newWps[i].wpTitle,
+              wpDescription: newWps[i].wpDescription,
+              wpDate: newWps[i].wpDate,
+            },
+          });
+        }
+
+        return updateItenary;
+      }
+    );
     if (transaction) return { ok: true };
   } catch (err) {
     console.log(err);
