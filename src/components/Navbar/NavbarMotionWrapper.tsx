@@ -6,12 +6,11 @@ import { motion } from 'framer-motion'
 const NavbarMotionWrapper = ({children}: {children: React.ReactNode}) => {
   return (
     <motion.div
-    initial={{ width: 0, scale: 0 }}
-    animate={{ width: '50%', scale: 1 }}
+    initial={{ scale: 0 }}
+    animate={{scale: 1 }}
     transition={{
-      duration: 0.2,
       type: 'spring',
-      stiffness: 75,
+      stiffness: 100,
     }}
     className=" border-secondary bg-primary rounded-full px-2 py-1.5 my-4 flex w-3/6 mx-auto"
   >

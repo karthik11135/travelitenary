@@ -22,6 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <link rel="icon" href="/favicon.png" sizes="any" />
       <body
         className={`${roboto.className} bg-supreme overflow-auto min-h-screen antialiased`}
       >

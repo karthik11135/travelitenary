@@ -9,9 +9,9 @@ const CommentsTrigger = ({ wayPointId }: { wayPointId: number }) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex flex-col text-slate-200">
+    <div className="flex flex-col text-supreme">
       <button
-        className="bg-secondary w-fit ms-auto rounded-full cursor-pointer px-3 py-1.5 text-xs font-bold "
+        className="bg-teritiary w-fit ms-auto rounded-full cursor-pointer px-3 py-1.5 text-xs font-bold "
         onClick={() => setOpen((open) => !open)}
         id="dropdownDefaultButton"
         data-dropdown-toggle="dropdown"

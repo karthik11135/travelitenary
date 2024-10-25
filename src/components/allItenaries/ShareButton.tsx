@@ -7,11 +7,15 @@ import { usePathname } from 'next/navigation';
 const ShareButton = () => {
   const pathname = usePathname();
   const [saved, setSaved] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const clickHandler = async () => {
-    await navigator.clipboard.writeText(
-      `${process.env.NEXT_PUBLIC_FULLURL}${pathname}`
-    );
-    console.log('im clicked');
+    setLoading(true);
+    if (loading === true)
+      await navigator.clipboard.writeText(
+        `${process.env.NEXT_PUBLIC_FULLURL}${pathname}`
+      );
+    setLoading(false);
   };
 
   return (
@@ -19,9 +23,9 @@ const ShareButton = () => {
       onClick={clickHandler}
       className={`flex gap-3 ${
         !saved ? 'cursor-pointer hover:shadow-lg' : ''
-      }  px-3 py-1.5 border border-zinc-500 transition rounded-full text-sm font-bold w-fit mx-auto`}
+      }  px-3 py-1.5 border bg-teritiary text-supreme transition rounded-full text-sm font-bold w-fit mx-auto`}
     >
-      {!saved && <p onClick={() => setSaved(true)}>Share</p>}
+      {!saved && !loading && <p onClick={() => setSaved(true)}>Share</p>}
       {saved && (
         <motion.div
           initial={{ x: 20, opacity: 0 }}

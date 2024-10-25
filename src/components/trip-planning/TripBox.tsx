@@ -83,15 +83,15 @@ const TripBox = React.forwardRef(({ num }: { num: number }, ref) => {
       <div className="grid grid-cols-12">
         <div className="col-span-9">
           <div className=" mb-5 text-supreme">
-            <p className="inline text-2xl text-white font-extrabold me-3">
+            <p className="inline text-2xl text-teritiary font-extrabold me-3">
               {num}.
             </p>
             <input
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 setTitleInput(e.target.value)
               }
-              className="bg-transparant text-zinc-50  bg-transparent border-b outline-none font-extrabold text-2xl  p-2 bg-none w-3/6 focus:outline-none "
-              placeholder="Step"
+              className="bg-transparant text-teritiary  bg-transparent border-b outline-none font-extrabold text-2xl  p-2 bg-none w-3/6 focus:outline-none "
+              placeholder="Waypoint Title"
             />
           </div>
           <div className="">
@@ -121,7 +121,7 @@ const TripBox = React.forwardRef(({ num }: { num: number }, ref) => {
           <AddIcon />
         </div>
       )}
-      {errMessage.length > 0 && <p className='font-bold text-red-300 px-6'>{errMessage}</p>}
+      {errMessage.length > 0 && <p className='font-bold bg-supreme w-fit rounded-full text-red-300 px-6'>{errMessage}</p>}
     </motion.div>
   );
 });

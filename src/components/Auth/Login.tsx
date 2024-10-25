@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { signIn } from 'next-auth/react';
-import { redirect } from 'next/navigation';
+import { redirect, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import CustomFormMessage from '@/ui/CustomFormMessage';
 import { useTransition } from 'react';
@@ -13,6 +13,9 @@ const Login = () => {
   const { data: session } = useSession();
   const [isPending, startTransition] = useTransition();
   const [credsErr, setCredsErr] = useState(false);
+
+  const searchParams = useSearchParams();
+  const error = searchParams.get('error');
 
   const loginHandler = (formData: FormData) => {
     startTransition(async () => {
@@ -68,8 +71,11 @@ const Login = () => {
           />
         </div>
         <div className="">
-          {credsErr && (
-            <CustomFormMessage message="Something went wrong" ok={false} />
+          {error && (
+            <CustomFormMessage
+              message="Wrong creds / network issues"
+              ok={false}
+            />
           )}
         </div>
 

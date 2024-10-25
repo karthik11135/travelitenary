@@ -1,7 +1,7 @@
 import { auth } from '@/db/auth';
-import Sidebar from '@/components/Sidebar/Sidebar';
-import { CommentBox } from '@/components/Comments/CommentBox';
+
 import HomeScreen from '@/components/landing/HomeScreen';
+
 import LandingScreen from '@/components/landing/LandingScreen';
 
 export default async function Home() {

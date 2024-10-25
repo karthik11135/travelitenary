@@ -23,16 +23,16 @@ export const Comments = ({ wayPointId }: { wayPointId: number }) => {
   }, []);
 
   return (
-    <div className="h-5/6 text-black overflow-scroll">
+    <div className="h-5/6 overflow-scroll">
       {loading && <p>Loading</p>}
       {comments?.length ? (
         comments.map((comment, ind) => {
           return (
             <div
               key={ind}
-              className="border-b px-2 py-1.5 text-black border-slate-700"
+              className="border-b px-2 py-1.5 text-supreme border-slate-700"
             >
-              <h3 className="font-bold text-sm">{comment.user.name}</h3>
+              <h3 className="font-bold text-black text-sm">{comment.user.name}</h3>
               <p className="text-xs">{comment.commentText}</p>
             </div>
           );
@@ -77,8 +77,8 @@ export const PostComment = ({
   const [state, formAction] = useFormState(handleFormAction, initialState);
 
   return (
-    <div className="px-2 border-t border-black h-1/6">
-      <form action={formAction} className="flex h-full py-2.5 w-full gap-3">
+    <div className="px-2 border-t border-supreme h-1/6">
+      <form action={formAction} className="flex  h-full py-2.5 w-full gap-3">
         <div className=" w-full h-full ">
           <input
             value={comment}
@@ -87,7 +87,7 @@ export const PostComment = ({
               setComment(e.target.value)
             }
             placeholder="Post a comment"
-            className="rounded-full h-full text-black bg-slate-300 focus:outline-none px-2 py-0.5 text-lg w-full"
+            className="rounded-full h-full shadow-lg text-supreme bg-teritiary focus:outline-none px-2 py-0.5 text-lg w-full"
           />
           <input
             name="userId"
@@ -116,7 +116,7 @@ const PostCommentButton = () => {
   return (
     <button
       disabled={pending ? true : false}
-      className="col-span-2 disabled:text-slate-600 disabled:cursor-not-allowed h-full bg-secondary cursor-pointer  font-bold flex items-center rounded-full px-2.5 text-xs"
+      className="col-span-2 disabled:text-slate-600 shadow-lg disabled:cursor-not-allowed h-full bg-teritiary cursor-pointer  font-bold flex items-center rounded-full px-2.5 text-xs"
     >
       Send
     </button>

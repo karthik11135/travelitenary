@@ -29,8 +29,15 @@ const TripPlan = () => {
   const submitItenaryHandler = async () => {
     setShowPostError(false);
     setLoading(true);
-    if ((tripRef.current && tripRef.current.value.trim() === '') || !session)
+    if (
+      (tripRef.current && tripRef.current.value.trim() === '') ||
+      !session ||
+      itenaryArr.length === 0
+    ) {
+      setShowPostError(true);
+      setLoading(false);
       return;
+    }
     if (!tripRef.current) return;
     if (childRef.current) {
       childRef.current.handleSaveClick();
@@ -83,7 +90,7 @@ const TripPlan = () => {
       </div>
       {showPostError && (
         <p className="text-center text-red-500 font-bold text-sm ">
-          Something error occured
+          Fill details yo
         </p>
       )}
     </div>

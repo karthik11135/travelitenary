@@ -25,7 +25,7 @@ export const ItenaryBoxWrapper = ({
       initial={{ x: 20, opacity: 0.5 }}
       animate={{ x: 0, opacity: 1 }}
       onClick={showTripHandler}
-      className="w-full relative text-slate-200 h-48 px-2 py-3 cursor-pointer rounded-xl bg-primary"
+      className="w-full relative overflow-scroll text-slate-200 h-48 px-2 py-3 cursor-pointer rounded-xl bg-primary"
     >
       {children}
     </motion.div>

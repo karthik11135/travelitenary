@@ -13,7 +13,7 @@ const CustomFormMessage = ({ message, ok }: formMessage) => {
       initial={{ height: 0, opacity: 0 }}
       animate={{ height: 'auto', opacity: 1 }}
       transition={{ duration: 0.2, type: 'spring', stiffness: 120 }}
-      className={`${colorClass} flex px-3 border mb-2 gap-5 w-fit font-extralight rounded-md`}
+      className={`${colorClass} flex px-3 font-bold border mb-2 gap-5 w-fit rounded-md`}
     >
       {message}
       {ok && <LoginLink />}
@@ -23,8 +23,8 @@ const CustomFormMessage = ({ message, ok }: formMessage) => {
 
 const LoginLink = () => {
   return (
-    <Link href="/login" className="ms-auto hover:bg-slate-700 mx-2 underline">
-      &nbsp; :- <span className="underline text-pink-300">Login</span>
+    <Link href="/login" className="ms-auto mx-2">
+     {`->`} <span className="underline ">Login</span>
     </Link>
   );
 };
