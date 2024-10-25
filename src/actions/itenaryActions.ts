@@ -52,6 +52,7 @@ export const getItenaryAction = async (itenaryId: number) => {
 
     if (itenaryDetails) return itenaryDetails;
   } catch (err) {
+    console.log(err)
     return null;
   }
 
@@ -77,6 +78,7 @@ export const getItenariesForUser = async (userId: number) => {
     console.log(itenaries, 'inside');
     if (itenaries) return itenaries;
   } catch (err) {
+    console.log(err)
     return null;
   }
   return null;

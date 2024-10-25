@@ -1,4 +1,4 @@
-import NextAuth, { DefaultSession } from 'next-auth';
+import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { loginAction, userExists } from '@/actions/authActions';
 import google from 'next-auth/providers/google';
@@ -43,6 +43,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           if (user) return user;
           return null;
         } catch (err) {
+          console.log(err)
           return null;
         }
       },
@@ -70,6 +71,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             });
             token.userId = newUser.id;
           } catch (err) {
+            console.log(err)
             return null;
           }
         } else {
@@ -82,7 +84,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },
 
-    async session({ session, user, token }) {
+    async session({ session, token }) {
       const newSession = session;
       if (token) {
         newSession.user.userId = token.userId as number;

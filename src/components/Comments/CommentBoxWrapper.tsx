@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { AnimatePresence } from 'framer-motion';
 
 const CommentBoxWrapper = ({ children }: { children: React.ReactNode }) => {
   return (

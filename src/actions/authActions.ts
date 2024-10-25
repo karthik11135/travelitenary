@@ -68,6 +68,7 @@ export const loginAction = async (
       };
     }
   } catch (err) {
+    console.log(err)
     return null;
   }
 };
@@ -82,6 +83,7 @@ export const userExists = async (email: string) => {
     if (!user) return false;
     return user;
   } catch (err) {
+    console.log(err)
     return false;
   }
 };

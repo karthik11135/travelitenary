@@ -1,25 +1,22 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import { signIn } from 'next-auth/react';
 import { redirect, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import CustomFormMessage from '@/ui/CustomFormMessage';
 import { useTransition } from 'react';
 import Loader from '@/ui/Loader';
-import Image from 'next/image';
 import { GoogleButton } from '@/ui/SocialLogin';
 
 const Login = () => {
   const { data: session } = useSession();
   const [isPending, startTransition] = useTransition();
-  const [credsErr, setCredsErr] = useState(false);
 
   const searchParams = useSearchParams();
   const error = searchParams.get('error');
 
   const loginHandler = (formData: FormData) => {
     startTransition(async () => {
-      setCredsErr(false);
       try {
         const res = await signIn('credentials', {
           email: formData.get('email'),
@@ -28,10 +25,8 @@ const Login = () => {
         });
 
         if (res?.error) {
-          setCredsErr(true);
           return;
         }
-        setCredsErr(false);
       } catch (err) {
         console.log('heres the error', err);
       }

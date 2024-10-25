@@ -65,7 +65,7 @@ interface NeonGradientCardProps {
    * */
   neonColors?: NeonColorsProps;
 
-  [key: string]: any;
+  // [key: string]: any;
 }
 
 const NeonGradientCard: React.FC<NeonGradientCardProps> = ({
@@ -80,7 +80,8 @@ const NeonGradientCard: React.FC<NeonGradientCardProps> = ({
   ...props
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [, setDimensions] = useState({ width: 0, height: 0 });
+
 
   useEffect(() => {
     const updateDimensions = () => {

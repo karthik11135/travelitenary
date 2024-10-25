@@ -4,7 +4,6 @@ import { LeftIcon } from '@/ui/Icons';
 import Link from 'next/link';
 import ShareButton from './ShareButton';
 import { EachWaypointType, EachItenaryType } from '@/types/types';
-import { CommentBox } from '../Comments/CommentBox';
 import CommentsTrigger from '../Comments/CommentsTrigger';
 
 const EachItenary = ({ itenary }: { itenary: EachItenaryType | null }) => {

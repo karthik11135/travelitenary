@@ -127,3 +127,6 @@ const TripBox = React.forwardRef(({ num }: { num: number }, ref) => {
 });
 
 export default TripBox;
+
+
+TripBox.displayName = 'TripBox'

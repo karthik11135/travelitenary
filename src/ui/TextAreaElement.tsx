@@ -18,7 +18,7 @@ const CustomTextarea = ({minRows, className, onChange, initialVal}: TextareaProp
       if (rowlen.length > minRows) {
         setRows(rowlen.length);
       }
-    }, [value]);
+    }, [value, minRows]);
   
     return (
       <textarea value={value} placeholder="Add description" onChangeCapture={onChange} className={className} rows={rows} onChange={(text) => setValue(text.target.value)} />

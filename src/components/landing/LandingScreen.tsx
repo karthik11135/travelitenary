@@ -6,7 +6,6 @@ import Image from 'next/image';
 import DotPattern from '../ui/dot-pattern';
 import { cn } from '@/lib/utils';
 import { CardBody, CardContainer, CardItem } from '../ui/3d-card';
-import { LeftIcon } from '@/ui/Icons';
 
 const LandingScreen = () => {
   return (

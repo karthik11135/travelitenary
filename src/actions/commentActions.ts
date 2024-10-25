@@ -22,6 +22,7 @@ export const getAllCommentsForWaypointAction = async (waypointId: number) => {
 
     return comments;
   } catch (err) {
+    console.log(err)
     return null;
   }
 };
@@ -40,6 +41,7 @@ export const postCommentAction = async (prevState: formMessage, formData: FormDa
     
     return {message: "Some error occurred", ok: false}
   } catch (err) {
+    console.log(err)
     return {message: "Some error occurred", ok: false}
   }
 };

@@ -1,7 +1,6 @@
 'use client';
 import { Comments } from './CommentFeatures';
 import { PostComment } from './CommentFeatures';
-import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 import CommentBoxWrapper from './CommentBoxWrapper';
 

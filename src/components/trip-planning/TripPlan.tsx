@@ -20,7 +20,7 @@ const TripPlan = () => {
   const { data: session } = useSession();
   const router = useRouter();
   console.log(session);
-  let { itenaryArr } = useContext(ItenaryDetailsContext);
+  const { itenaryArr } = useContext(ItenaryDetailsContext);
   const [showPostError, setShowPostError] = useState(false);
   const tripRef = useRef<null | HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
@@ -113,3 +113,5 @@ const TripDestination = React.forwardRef<HTMLInputElement>((_, ref) => (
     />
   </motion.div>
 ));
+
+TripDestination.displayName = 'TripDestination'

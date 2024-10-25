@@ -20,7 +20,7 @@ export const Comments = ({ wayPointId }: { wayPointId: number }) => {
     fetchComments();
     setLoading(false);
     return () => {};
-  }, []);
+  }, [fetchComments]);
 
   return (
     <div className="h-5/6 overflow-scroll">
@@ -62,7 +62,7 @@ export const PostComment = ({
 
   const [comment, setComment] = useState('');
 
-  const handleFormAction = async (prevState: any, formData: FormData) => {
+  const handleFormAction = async (prevState: formMessage, formData: FormData) => {
     if (!session) {
       redirect('/login');
     }
@@ -74,7 +74,7 @@ export const PostComment = ({
     return result;
   };
 
-  const [state, formAction] = useFormState(handleFormAction, initialState);
+  const [, formAction] = useFormState(handleFormAction, initialState);
 
   return (
     <div className="px-2 border-t border-supreme h-1/6">

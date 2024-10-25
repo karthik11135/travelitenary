@@ -4,8 +4,6 @@ import { useFormState, useFormStatus } from 'react-dom';
 import { signupAction } from '@/actions/authActions';
 import { formMessage } from '@/types/types';
 import Loader from '@/ui/Loader';
-import { motion } from 'framer-motion';
-import Link from 'next/link';
 import CustomFormMessage from '@/ui/CustomFormMessage';
 import { GoogleButton } from '@/ui/SocialLogin';
 
@@ -22,6 +20,7 @@ const Signup = () => {
     'bg-green-200',
     'text-green-800',
   ];
+  console.log(colors)
   return (
     <div className="bg-primary rounded-lg shadow-md p-8 w-full mx-auto mt-10 max-w-md">
       <h2 className="text-2xl font-semibold text-teritiary mb-6">

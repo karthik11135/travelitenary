@@ -1,5 +1,5 @@
 'use client';
-import React, { ChangeEvent, FormEvent } from 'react';
+import React, { FormEvent } from 'react';
 import { EachItenaryType, EachWaypointType } from '@/types/types';
 import { useState } from 'react';
 import { AddIcon } from '@/ui/Icons';
@@ -16,7 +16,7 @@ const EditItenary = ({ itenary }: { itenary: EachItenaryType | null }) => {
   const [isPending, setIsPending] = useState(false);
   const [errMessage, setErrMessage] = useState('');
 
-  const [wpData, setWpdata] = useState({});
+  const [wpData, setWpdata] = useState<Record<number, EachWaypointType>>({});
 
   const router = useRouter();
 
@@ -29,7 +29,7 @@ const EditItenary = ({ itenary }: { itenary: EachItenaryType | null }) => {
       return;
     }
     if (!itenary) return;
-    let wpArr = Object.values(wpData) as [];
+    const wpArr = Object.values(wpData) as [];
     const wpArrProcessed = wpArr.filter((wp) => wp['wpTitle'] !== '');
     const noTitleArr = wpArr.filter((wp) => wp['wpTitle'] === '');
 
@@ -56,7 +56,9 @@ const EditItenary = ({ itenary }: { itenary: EachItenaryType | null }) => {
 
   return (
     <div className="text-white pt-10 w-10/12">
-      <h1 className='text-3xl text-teritiary mb-4 font-extralight px-3'>Edit your Itenary</h1>
+      <h1 className="text-3xl text-teritiary mb-4 font-extralight px-3">
+        Edit your Itenary
+      </h1>
       <form onSubmit={submitHandler}>
         <div className="px-3">
           <input

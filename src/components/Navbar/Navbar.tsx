@@ -1,7 +1,5 @@
 import Link from 'next/link';
 import React from 'react';
-import { motion } from 'framer-motion';
-import { signOut } from 'next-auth/react';
 import { auth } from '@/db/auth';
 import Logout from './Logout';
 import NavbarMotionWrapper from './NavbarMotionWrapper';

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import React from 'react';
 import Datepicker from 'react-tailwindcss-datepicker';
 import { DateType } from '@/types/types';
@@ -9,10 +8,6 @@ interface DatePickProps {
 }
 
 const DatePickerFeature = ({ dates, setDates }: DatePickProps) => {
-  const [value, setValue] = useState<DateType>({
-    startDate: null,
-    endDate: null,
-  });
 
   return (
 

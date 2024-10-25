@@ -62,4 +62,4 @@ export interface EachComment {
   user: {
       name: string;
   };
-}[] 
+}

@@ -1,7 +1,7 @@
 'use client';
-import { FlightIcon, LogoutIcon } from '@/ui/Icons';
+import { LogoutIcon } from '@/ui/Icons';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Globe, AirplaneTakeoff } from '@phosphor-icons/react';
 import { signOut } from 'next-auth/react';

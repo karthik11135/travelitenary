@@ -12,11 +12,15 @@ export const EditWaypoint = ({
 }: {
   wpDetails: EachWaypointType;
   index: number;
-  onUpdate: React.Dispatch<React.SetStateAction<{}>>;
+  onUpdate: React.Dispatch<
+    React.SetStateAction<Record<number, EachWaypointType>>
+  >;
 }) => {
   const [wpTitle, setWpTitle] = useState(wpDetails.wpTitle);
   const [wpDescription, setWpDescription] = useState(wpDetails.wpDescription);
-  const [wpCost, setWpCost] = useState<null | number>(wpDetails.wpCost > 0 ? wpDetails.wpCost : null);
+  const [wpCost, setWpCost] = useState<null | number>(
+    wpDetails.wpCost > 0 ? wpDetails.wpCost : null
+  );
   const [dates, setDates] = useState<DateType>({
     startDate: new Date(Date.parse(wpDetails.wpDate)),
     endDate: new Date(Date.parse(wpDetails.wpDate)),
@@ -28,9 +32,9 @@ export const EditWaypoint = ({
         ...prev,
         [index - 1]: {
           id: wpDetails.id || -1,
-          wpCost,
-          wpTitle,
-          wpDescription,
+          wpCost: wpCost as number,
+          wpTitle: wpTitle as string,
+          wpDescription: wpDescription as string,
           wpDate: dates.startDate ? dates.startDate.toLocaleString() : '',
         },
       };
