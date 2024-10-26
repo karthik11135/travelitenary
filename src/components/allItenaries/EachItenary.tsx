@@ -5,8 +5,11 @@ import Link from 'next/link';
 import ShareButton from './ShareButton';
 import { EachWaypointType, EachItenaryType } from '@/types/types';
 import CommentsTrigger from '../Comments/CommentsTrigger';
+import { useSession } from 'next-auth/react';
 
 const EachItenary = ({ itenary }: { itenary: EachItenaryType | null }) => {
+  const { data: session } = useSession();
+  console.log(session)
   let totalCost = 0;
   if (!itenary?.waypoints) return;
   for (let i = 0; i < itenary?.waypoints.length; i++) {
@@ -19,18 +22,22 @@ const EachItenary = ({ itenary }: { itenary: EachItenaryType | null }) => {
           {itenary?.title} Trip
         </h1>
         <div className="ms-auto flex gap-3 items-center">
-          <Link
-            href={`/itenaries/edit/${itenary.id}`}
-            className="bg-white ms-2 text-lg text-supreme font-bold hover:-translate-y-0.5 transition rounded-full z-20 right-2 bottom-2 px-3"
-          >
-            Edit
-          </Link>
-          <Link
-            href={'/itenaries'}
-            className=" cursor-pointer p-1 rounded-full hover:-translate-x-0.5 transition"
-          >
-            <LeftIcon />
-          </Link>
+          {session && (
+            <>
+              <Link
+                href={`/itenaries/edit/${itenary.id}`}
+                className="bg-white ms-2 text-lg text-supreme font-bold hover:-translate-y-0.5 transition rounded-full z-20 right-2 bottom-2 px-3"
+              >
+                Edit
+              </Link>
+              <Link
+                href={'/itenaries'}
+                className=" cursor-pointer p-1 rounded-full hover:-translate-x-0.5 transition"
+              >
+                <LeftIcon />
+              </Link>
+            </>
+          )}
         </div>
       </div>
       <div>
@@ -39,7 +46,10 @@ const EachItenary = ({ itenary }: { itenary: EachItenaryType | null }) => {
         })}
       </div>
       <div className="px-2 font bold text-teritiary font-bold">
-        Expected cost of the trip is <span className='px-2.5 py-1 rounded-full bg-supreme ms-2 text-green-400'>$ {totalCost}</span>
+        Expected cost of the trip is{' '}
+        <span className="px-2.5 py-1 rounded-full bg-supreme ms-2 text-green-400">
+          $ {totalCost}
+        </span>
       </div>
 
       <div>
