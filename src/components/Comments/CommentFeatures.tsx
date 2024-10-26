@@ -6,6 +6,7 @@ import { EachComment, formMessage } from '@/types/types';
 import { useSession } from 'next-auth/react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { redirect } from 'next/navigation';
+import Loader from '@/ui/Loader';
 
 export const Comments = ({ wayPointId }: { wayPointId: number }) => {
   const [comments, setComments] = useState<EachComment[] | null>(null);
@@ -20,12 +21,12 @@ export const Comments = ({ wayPointId }: { wayPointId: number }) => {
     fetchComments();
     setLoading(false);
     return () => {};
-  }, [fetchComments]);
+  }, []);
 
   return (
     <div className="h-5/6 overflow-scroll">
-      {loading && <p>Loading</p>}
-      {comments?.length ? (
+      {loading && <Loader />}
+      {comments?.length && comments.length > 0 && (
         comments.map((comment, ind) => {
           return (
             <div
@@ -37,10 +38,6 @@ export const Comments = ({ wayPointId }: { wayPointId: number }) => {
             </div>
           );
         })
-      ) : (
-        <p className="w-fit mt-4 mx-auto font-extralight text-black text-2xl">
-          No comments
-        </p>
       )}
     </div>
   );
@@ -74,7 +71,7 @@ export const PostComment = ({
     return result;
   };
 
-  const [, formAction] = useFormState(handleFormAction, initialState);
+  const [state, formAction] = useFormState(handleFormAction, initialState);
 
   return (
     <div className="px-2 border-t border-supreme h-1/6">
@@ -102,6 +99,7 @@ export const PostComment = ({
             className="hidden"
           />
         </div>
+        <p>{state.ok === false && <Loader />}</p>
         <div className="flex ms-auto items-center ms">
           <PostCommentButton />
         </div>
