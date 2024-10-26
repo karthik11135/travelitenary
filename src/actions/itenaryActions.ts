@@ -124,7 +124,7 @@ export const editItenaryAction = async (
           await tx.waypoints.create({
             data: {
               itenaryId: itenaryId,
-              wpCost: newWps[i].wpCost,
+              wpCost: newWps[i].wpCost ? newWps[i].wpCost : 0,
               wpTitle: newWps[i].wpTitle,
               wpDescription: newWps[i].wpDescription,
               wpDate: newWps[i].wpDate,
