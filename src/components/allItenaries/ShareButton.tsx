@@ -11,10 +11,10 @@ const ShareButton = () => {
 
   const clickHandler = async () => {
     setLoading(true);
-    if (loading === true)
-      await navigator.clipboard.writeText(
-        `${process.env.NEXT_PUBLIC_FULLURL}${pathname}`
-      );
+    console.log(true)
+    await navigator.clipboard.writeText(
+      `${process.env.NEXT_PUBLIC_FULLURL}${pathname}`
+    );
     setLoading(false);
   };
 

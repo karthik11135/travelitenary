@@ -1,10 +1,15 @@
 import React from 'react';
 
-const Loader = () => {
+interface LoaderProps {
+  color?: string
+}
+
+const Loader = ({color}: LoaderProps) => {
+
   return (
     <>
       <div
-        className="animate-spin inline-block size-6 border-[3px] border-current border-t-transparent text-teritiary rounded-full dark:teritiary"
+        className={`animate-spin ${color ? "text-supreme" : "text-teritiary"} inline-block size-6 border-[3px] border-current border-t-transparent rounded-full dark:teritiary`}
         role="status"
         aria-label="loading"
       >

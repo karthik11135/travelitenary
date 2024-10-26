@@ -12,33 +12,35 @@ export const Comments = ({ wayPointId }: { wayPointId: number }) => {
   const [comments, setComments] = useState<EachComment[] | null>(null);
   const [loading, setLoading] = useState(false);
   const fetchComments = async () => {
+    setLoading(true);
     const commentsRes = await getAllCommentsForWaypointAction(wayPointId);
+    setLoading(false);
     if (commentsRes) setComments(commentsRes);
+    return commentsRes;
   };
 
   useEffect(() => {
-    setLoading(true);
     fetchComments();
-    setLoading(false);
-    return () => {};
   }, []);
 
   return (
     <div className="h-5/6 overflow-scroll">
       {loading && <Loader />}
-      {comments?.length && comments.length > 0 && (
+      {comments?.length &&
+        comments.length > 0 &&
         comments.map((comment, ind) => {
           return (
             <div
               key={ind}
               className="border-b px-2 py-1.5 text-supreme border-slate-700"
             >
-              <h3 className="font-bold text-black text-sm">{comment.user.name}</h3>
+              <h3 className="font-bold text-black text-sm">
+                {comment.user.name}
+              </h3>
               <p className="text-xs">{comment.commentText}</p>
             </div>
           );
-        })
-      )}
+        })}
     </div>
   );
 };
@@ -59,7 +61,10 @@ export const PostComment = ({
 
   const [comment, setComment] = useState('');
 
-  const handleFormAction = async (prevState: formMessage, formData: FormData) => {
+  const handleFormAction = async (
+    prevState: formMessage,
+    formData: FormData
+  ) => {
     if (!session) {
       redirect('/login');
     }
@@ -71,7 +76,7 @@ export const PostComment = ({
     return result;
   };
 
-  const [state, formAction] = useFormState(handleFormAction, initialState);
+  const [, formAction] = useFormState(handleFormAction, initialState);
 
   return (
     <div className="px-2 border-t border-supreme h-1/6">
@@ -99,7 +104,6 @@ export const PostComment = ({
             className="hidden"
           />
         </div>
-        <p>{state.ok === false && <Loader />}</p>
         <div className="flex ms-auto items-center ms">
           <PostCommentButton />
         </div>
@@ -116,7 +120,8 @@ const PostCommentButton = () => {
       disabled={pending ? true : false}
       className="col-span-2 disabled:text-slate-600 shadow-lg disabled:cursor-not-allowed h-full bg-teritiary cursor-pointer  font-bold flex items-center rounded-full px-2.5 text-xs"
     >
-      Send
+      {!pending && 'Send'}
+      {pending && <Loader color={'somethign'} />}
     </button>
   );
 };
