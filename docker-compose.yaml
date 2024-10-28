@@ -1,0 +1,30 @@
+services:
+  travel-app:
+    build: .
+    container_name: travel-container
+    environment:
+      - DATABASE_URL=postgresql://karthik:mysecretpassword@db-container:5432/postgres
+      - AUTH_SECRET=towhuqRAT0RoHhOFU8ihL1YCC7LFuMT1W9NfxaXexlk=
+      - NEXTAUTH_SECRET=de3b7b592bc5eb6890f141e8958688a5
+      - NEXTAUTH_URL=http://localhost:3000
+      - NEXT_PUBLIC_FULLURL=http://localhost:3000
+      - AUTH_GOOGLE_ID=609300456710-iemp53mu35jf1csul2s38i5bh84g9b72.apps.googleusercontent.com
+      - AUTH_GOOGLE_SECRET=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
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db-app
+      
+  db-app: 
+    image: postgres
+    container_name: db-container
+    environment:
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_USER=karthik
+    volumes:
+      - travel-vol:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+volumes:
+  travel-vol:
